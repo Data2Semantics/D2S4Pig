@@ -1,0 +1,11 @@
+<http://data.kasabi.com/dataset/chembl-rdf/molecule/m63632> <http://www.w3.org/2004/02/skos/core#exactMatch> "N Trip.les" .
+<http://data.kasabi.com/dataset/chembl-rdf/molecule/m63770> <http://www.w3.org/2004/02/skos/core#exactMatch> "N-Triples"@en-US .
+<http://data.kasabi.com/dataset/chembl-rdf/molecule/m63770> <http://www.w3.org/2004/02/skos/core#exactMatch> "N-Triples"@en-US.
+<http://data.kasabi.com/dataset/chembl-rdf/molecule/m63949> <http://www.w3.org/2004/02/skos/core#exactMatch> <http://purl.obolibrary.org/obo/CHEBI_16643> .
+<http://data.kasabi.com/dataset/chembl-rdf/molecule/m63952> <http://www.w3.org/2004/02/skos/core#exactMatch> <http://purl.obolibrary.org/obo/CHEBI_35812>.
+<http://data.kasabi.com/dataset/chembl-rdf/molecule/m63997> <http://www.w3.org/2004/02/skos/core#exactMatch> <http://purl.obolibrary.org/obo/CHEBI_33118> .
+<http://data.kasabi.com/dataset/chembl-rdf/molecule/m64102> <http://www.w3.org/2004/02/skos/core#exactMatch> <http://purl.obolibrary.org/obo/CHEBI_17658> .
+<http://data.kasabi.com/dataset/chembl-rdf/molecule/m64200> <http://www.w3.org/2004/02/skos/core#exactMatch> <http://purl.obolibrary.org/obo/CHEBI_164200> .
+<http://data.kasabi.com/dataset/chembl-rdf/molecule/m64242> <http://www.w3.org/2004/02/skos/core#exactMatch> <http://purl.obolibrary.org/obo/CHEBI_17371> .
+<http://data.kasabi.com/dataset/chembl-rdf/molecule/m64331> <http://www.w3.org/2004/02/skos/core#exactMatch> <http://purl.obolibrary.org/obo/CHEBI_15794> .
+<http://data.kasabi.com/dataset/chembl-rdf/molecule/m64398> <http://www.w3.org/2004/02/skos/core#exactMatch> <http://purl.obolibrary.org/obo/CHEBI_31725> .
