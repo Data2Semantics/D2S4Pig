@@ -1,4 +1,4 @@
-package com.data2semantics.pig;
+package com.data2semantics.test.pig;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
