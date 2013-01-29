@@ -5,6 +5,8 @@ import java.io.IOException;
 import org.apache.pig.data.Tuple;
 import org.junit.Test;
 
+import com.data2semantics.pig.loaders.NtLoader;
+
 public class NtLoaderTest {
 
 	@Test
@@ -23,7 +25,7 @@ public class NtLoaderTest {
 		assertNotNull(line1);
 		String sub = line1.get(0).toString();
 		assertNotNull(sub);
-		assertEquals("<http://data.kasabi.com/dataset/chembl-rdf/molecule/m63632>", sub);
+		assertEquals("beforetab", sub);
 		String pred = line1.get(1).toString();
 		assertEquals("<http://www.w3.org/2004/02/skos/core#exactMatch>", pred);
 		String object = line1.get(2).toString();
