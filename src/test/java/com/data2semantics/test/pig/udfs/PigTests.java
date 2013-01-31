@@ -18,7 +18,7 @@ import org.apache.pig.tools.parameters.ParseException;
 
 public abstract class PigTests {
 	public static String RESOURCE_DIR = "src/test/resources/";
-	public static String PIGUNIT_DIR = "src/test/resources/pigUnit/";
+	public static String JAR_DIR = "target/";
 	protected String[] getDefaultArgs() {
 		String[] args = { "JAR_PATH=" + getJarPath() };
 		return args;
@@ -60,7 +60,7 @@ public abstract class PigTests {
 
 	protected String getJarPath() {
 		System.out.println("Getting jar path");
-		String jarDir = PIGUNIT_DIR;
+		String jarDir = JAR_DIR;
 //		if (System.getProperty("datafu.jar.dir") != null) {
 //			jarDir = System.getProperty("datafu.jar.dir");
 //		} else {
