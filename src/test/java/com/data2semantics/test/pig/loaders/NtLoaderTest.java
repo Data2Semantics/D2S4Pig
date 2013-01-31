@@ -1,4 +1,4 @@
-package com.data2semantics.test.pig;
+package com.data2semantics.test.pig.loaders;
 
 import static org.junit.Assert.*;
 

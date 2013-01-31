@@ -16,6 +16,7 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.pig.LoadCaster;
 import org.apache.pig.LoadFunc;
 import org.apache.pig.PigException;
+import org.apache.pig.PigWarning;
 import org.apache.pig.ResourceSchema.ResourceFieldSchema;
 import org.apache.pig.backend.executionengine.ExecException;
 import org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigSplit;
@@ -26,6 +27,7 @@ import org.apache.pig.impl.util.UDFContext;
 
 /**
  * N-triples loader for pig
+ * why did I make this again? might as well use http://jena.apache.org/documentation/io/riot.html
  */
 public class NtLoader extends LoadFunc {
 	private static final byte DOUBLE_QUOTE = '"';
@@ -136,7 +138,8 @@ public class NtLoader extends LoadFunc {
 			for (int i = 0; i < len; i++) {
 				byte b = buf[i];
 				if (protoTuple.size() == 0 && fieldBuffer.position() == 0 && b == PREFIX_START) {
-					//ignore lines which start with '@' (prefix). Not needed now
+					//ignore lines which start with '@' (prefix). Shouldnt be in ntriple
+					warn("encountered prefix declaration in turtle. skipping", PigWarning.UDF_WARNING_1);
 					return null;
 				}
 				
@@ -210,7 +213,7 @@ public class NtLoader extends LoadFunc {
 		buffer.rewind();
 		buffer.get(bytes, 0, bytes.length);
 		if (protoTuple.size() < 3) { //gracefully handle tuples which arent -triples- (warning here?)
-			protoTuple.add(new DataByteArray(bytes));
+			protoTuple.add(new DataByteArray(bytes).toString());//shouldnt use bytes anyway, just use char array
 		}
 		buffer.clear();
 	}
