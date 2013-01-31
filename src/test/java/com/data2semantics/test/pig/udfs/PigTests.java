@@ -135,7 +135,6 @@ public abstract class PigTests {
 	}
 
 	protected File getFile(String fileName) {
-//		return new File(System.getProperty("user.dir") + "/tmp", fileName).getAbsoluteFile();
 		return new File(System.getProperty("user.dir") , fileName).getAbsoluteFile();
 	}
 
