@@ -31,11 +31,13 @@ import org.apache.pig.impl.util.UDFContext;
  */
 public class NtLoader extends LoadFunc {
 	private static final byte DOUBLE_QUOTE = '"';
+	private static final byte COMMENT = '#';
 	private static final byte[] FIELD_DEL = {' ', '\t'};
 	private static final byte RECORD_DEL = '.';
 	private static final byte URI_START = '<';
 	private static final byte URI_END = '>';
 	private static final byte PREFIX_START = '@';
+	private static final byte ESCAPE_CHAR = '\\';
 	private ArrayList<Object> protoTuple;
 	@SuppressWarnings("rawtypes")
 	protected RecordReader reader = null;
@@ -134,18 +136,23 @@ public class NtLoader extends LoadFunc {
 			int len = value.getLength();
 
 			ByteBuffer fieldBuffer = ByteBuffer.allocate(len);
-			
+			byte prevByte = 0;
 			for (int i = 0; i < len; i++) {
+				
 				byte b = buf[i];
 				if (protoTuple.size() == 0 && fieldBuffer.position() == 0 && b == PREFIX_START) {
 					//ignore lines which start with '@' (prefix). Shouldnt be in ntriple
 					warn("encountered prefix declaration in turtle. skipping", PigWarning.UDF_WARNING_1);
 					return null;
 				}
+				if (protoTuple.size() == 0 && fieldBuffer.position() == 0 && b == COMMENT) {
+					//ignore lines which are comments
+					return null;
+				}
 				
 				inField = true;
 				if (inQuotedField) {
-					if (b == DOUBLE_QUOTE) {
+					if (b == DOUBLE_QUOTE && prevByte != ESCAPE_CHAR) {
 						inQuotedField = false;
 						afterQuotedField = true;
 					}
@@ -189,6 +196,7 @@ public class NtLoader extends LoadFunc {
 				} else {
 					fieldBuffer.put(b);
 				}
+				prevByte = b;
 			}
 			if (inField) {
 				readField(fieldBuffer);

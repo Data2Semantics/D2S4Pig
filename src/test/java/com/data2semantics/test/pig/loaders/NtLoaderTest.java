@@ -2,6 +2,8 @@ package com.data2semantics.test.pig.loaders;
 
 import static org.junit.Assert.*;
 
+import java.io.FileNotFoundException;
+
 import org.apache.pig.backend.executionengine.ExecException;
 import org.apache.pig.data.Tuple;
 import org.junit.Test;
@@ -63,12 +65,68 @@ public class NtLoaderTest {
 		//10th line
 		testObject(custLoader.getNext(), "\"Ted\"^^xsd:string");
 		
+		//11th line
+		testObject(custLoader.getNext(), "\"bladiebla\\\"bla\"@en");
+		
+		//12th line
+		testObject(custLoader.getNext(), "\"\\\"bladieblabla\"@en");
 	}
 	
 	private void testObject(Tuple line, String expected) throws ExecException {
 		assertNotNull(line);
 		String object = line.get(2).toString();
 		assertEquals(expected, object);
+	}
+	
+	@Test
+	public void testMissingTuple() throws Exception {
+		MockRecordReader reader = new MockRecordReader("src/test/resources/testMissingTuple.nt");
+
+		NtLoader custLoader = new NtLoader();
+
+		custLoader.prepareToRead(reader, null);
+		
+		Tuple line1 = custLoader.getNext();
+		assertNotNull(line1);
+		assertEquals(3, line1.size());
+		assertTrue(allTuplesFilled(line1));
+		
+		Tuple line2 = custLoader.getNext();
+		assertNotNull(line2);
+		assertEquals(3, line2.size());
+		assertTrue(allTuplesFilled(line2));
+
+		Tuple line3 = custLoader.getNext();
+		assertNotNull(line3);
+		assertEquals(3, line3.size());
+		assertTrue(allTuplesFilled(line3));
+		
+		Tuple line4 = custLoader.getNext();
+		assertNotNull(line4);
+		assertEquals(3, line4.size());
+		assertTrue(allTuplesFilled(line4));
+		
+		Tuple line5 = custLoader.getNext();
+		assertNotNull(line5);
+		assertEquals(3, line5.size());
+		assertTrue(allTuplesFilled(line5));
+		
+		Tuple line6 = custLoader.getNext();
+		assertNotNull(line6);
+		assertEquals(3, line6.size());
+		assertTrue(allTuplesFilled(line6));
+		
+	}
+	
+	private boolean allTuplesFilled(Tuple tuple) throws ExecException {
+		boolean filled = true;
+		for (int i = 0; i < tuple.size(); i++) {
+			if (tuple.get(i).toString().trim().length() == 0) {
+				filled = false;
+				break;
+			}
+		}
+		return filled;
 	}
 
 //	@Test(expected = IOException.class)

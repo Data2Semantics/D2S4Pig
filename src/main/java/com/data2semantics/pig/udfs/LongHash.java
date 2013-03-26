@@ -8,12 +8,12 @@ public class LongHash extends EvalFunc<Long> {
 
 	@Override
 	public Long exec(Tuple input) throws IOException {
-		if (input == null || input.size() == 0)
+		if (input == null || input.size() == 0 || input.get(0) == null)
 			return hash("");
 		try {
 			return hash((String) input.get(0));
 		} catch (Exception e) {
-			throw new IOException("Caught exception processing input row ", e);
+			throw new IOException("Caught exception processing input row.", e);
 		}
 	}
 

@@ -5,3 +5,4 @@ target/classes/*
 .classpath
 target/*
 input
+/target
