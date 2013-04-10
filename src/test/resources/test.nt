@@ -11,3 +11,4 @@
 <http://data.kasabi.com/dataset/chembl-rdf/molecule/m64398> <http://www.w3.org/2004/02/skos/core#exactMatch> "bladiebla\"bla"@en .
 <http://data.kasabi.com/dataset/chembl-rdf/molecule/m64398> <http://www.w3.org/2004/02/skos/core#exactMatch> "\"bladieblabla"@en .
 <http://data.kasabi.com/dataset/chembl-rdf/molecule/m64398> <http://www.w3.org/2004/02/skos/core#exactMatch> <http://purl.obolibrary.org/obo/CHEBI_31725> .
+<http://data.kasabi.com/dataset/chembl-rdf/molecule/m64398> <http://www.w3.org/2004/02/skos/core#exactMatch> "\"bladieblabla\\"@en .

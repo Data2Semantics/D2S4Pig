@@ -70,6 +70,12 @@ public class NtLoaderTest {
 		
 		//12th line
 		testObject(custLoader.getNext(), "\"\\\"bladieblabla\"@en");
+		
+		//13th line
+		custLoader.getNext();
+		
+		//14th line
+		testObject(custLoader.getNext(), "\"\\\"bladieblabla\\\\\"@en");
 	}
 	
 	private void testObject(Tuple line, String expected) throws ExecException {

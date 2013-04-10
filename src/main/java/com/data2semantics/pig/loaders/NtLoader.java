@@ -126,6 +126,7 @@ public class NtLoader extends LoadFunc {
 		boolean afterQuotedField = false;
 		boolean inUriField = false;
 		boolean inLiteralTypeField = false;
+		boolean isEscaped = false;
 
 		try {
 			if (!reader.nextKeyValue()) {
@@ -134,12 +135,17 @@ public class NtLoader extends LoadFunc {
 			Text value = (Text) reader.getCurrentValue();
 			byte[] buf = value.getBytes();
 			int len = value.getLength();
-
+			
 			ByteBuffer fieldBuffer = ByteBuffer.allocate(len);
-			byte prevByte = 0;
 			for (int i = 0; i < len; i++) {
-				
 				byte b = buf[i];
+				if (b == ESCAPE_CHAR) {
+					if (isEscaped) {
+						isEscaped = false;
+					} else {
+						isEscaped = true;
+					}
+				} 
 				if (protoTuple.size() == 0 && fieldBuffer.position() == 0 && b == PREFIX_START) {
 					//ignore lines which start with '@' (prefix). Shouldnt be in ntriple
 					warn("encountered prefix declaration in turtle. skipping", PigWarning.UDF_WARNING_1);
@@ -152,7 +158,7 @@ public class NtLoader extends LoadFunc {
 				
 				inField = true;
 				if (inQuotedField) {
-					if (b == DOUBLE_QUOTE && prevByte != ESCAPE_CHAR) {
+					if (b == DOUBLE_QUOTE && !isEscaped) {
 						inQuotedField = false;
 						afterQuotedField = true;
 					}
@@ -196,7 +202,12 @@ public class NtLoader extends LoadFunc {
 				} else {
 					fieldBuffer.put(b);
 				}
-				prevByte = b;
+				
+				//escaping only works for one character, so reset at the end
+				if (isEscaped && b != ESCAPE_CHAR) {
+					isEscaped = false;
+				}
+				
 			}
 			if (inField) {
 				readField(fieldBuffer);
