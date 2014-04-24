@@ -146,15 +146,15 @@ public class NtLoader extends LoadFunc {
 						isEscaped = true;
 					}
 				} 
-				if (protoTuple.size() == 0 && fieldBuffer.position() == 0 && b == PREFIX_START) {
-					//ignore lines which start with '@' (prefix). Shouldnt be in ntriple
-					warn("encountered prefix declaration in turtle. skipping", PigWarning.UDF_WARNING_1);
-					return null;
-				}
-				if (protoTuple.size() == 0 && fieldBuffer.position() == 0 && b == COMMENT) {
-					//ignore lines which are comments
-					return null;
-				}
+//				if (protoTuple.size() == 0 && fieldBuffer.position() == 0 && b == PREFIX_START) {
+//					//ignore lines which start with '@' (prefix). Shouldnt be in ntriple
+//					warn("encountered prefix declaration in turtle. skipping", PigWarning.UDF_WARNING_1);
+//					return null;
+//				}
+//				if (protoTuple.size() == 0 && fieldBuffer.position() == 0 && b == COMMENT) {
+//					//ignore lines which are comments
+//					return null;
+//				}
 				
 				inField = true;
 				if (inQuotedField) {
@@ -219,10 +219,9 @@ public class NtLoader extends LoadFunc {
 		}
 		
 		Tuple t = null;
-		if (protoTuple.size() > 0) {
-			//ignore empty lines (otherwise we get an empty tuple..)
+//		if (protoTuple.size() > 0) {
 			t = tupleFactory.newTupleNoCopy(protoTuple);
-		}
+//		}
 		return t;
 	}
 
